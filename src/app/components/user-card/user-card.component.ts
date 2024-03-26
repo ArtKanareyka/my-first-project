@@ -7,5 +7,5 @@ import { User } from '../../interface/user.interface'
 	templateUrl: './user-card.component.html'
 })
 export class UserCardComponent {
-	@Input() user: User | undefined
+	@Input({ required: true }) user: User | undefined
 }
