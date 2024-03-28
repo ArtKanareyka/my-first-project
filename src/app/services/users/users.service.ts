@@ -23,4 +23,13 @@ export class UsersService {
 			this.users.next(users)
 		})
 	}
+
+	public deleteUser(id: number) {
+		this.users$.subscribe((users: User[]) => {
+			users.splice(
+				users.findIndex(user => user.id === id),
+				1
+			)
+		})
+	}
 }

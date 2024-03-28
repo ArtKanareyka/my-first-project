@@ -14,6 +14,10 @@ export class UserListComponent implements OnInit {
 
 	private readonly usersService = inject(UsersService)
 
+	deleteUser(id: number): void {
+		this.usersService.deleteUser(id)
+	}
+
 	ngOnInit(): void {
 		this.usersService.users$.subscribe(users => {
 			this.users = users

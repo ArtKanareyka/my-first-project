@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { User } from '../../interface/user.interface'
 
 @Component({
@@ -8,4 +8,9 @@ import { User } from '../../interface/user.interface'
 })
 export class UserCardComponent {
 	@Input({ required: true }) user: User | undefined
+	@Output() deleteUserEvent = new EventEmitter<number | undefined>()
+
+	deleteUser(id: number | undefined) {
+		this.deleteUserEvent.emit(id)
+	}
 }
