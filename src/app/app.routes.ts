@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router'
 import { UserListComponent } from './pages/users-list/users-list.component'
 import { HomeComponent } from './pages/home/home.component'
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component'
 
 export const routes: Routes = [
 	{
@@ -15,7 +16,7 @@ export const routes: Routes = [
 	},
 	{
 		path: '**',
-		component: HomeComponent,
-		redirectTo: ''
+		component: PageNotFoundComponent,
+		title: '404'
 	}
 ]
