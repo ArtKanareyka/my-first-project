@@ -32,4 +32,10 @@ export class UsersService {
 			)
 		})
 	}
+
+	public postUser(data: any) {
+		this.users$.subscribe((users: User[]) => {
+			users.push(data)
+		})
+	}
 }

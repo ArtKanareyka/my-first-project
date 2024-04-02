@@ -1,0 +1,38 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+	<h2 mat-dialog-title>Create new user</h2>
+	<mat-dialog-content
+		><ol>
+			<li>
+				<mat-form-field>
+					<mat-label>Name</mat-label>
+					<input matInput formControlName="name" />
+				</mat-form-field>
+			</li>
+			<li>
+				<mat-form-field>
+					<mat-label>Email</mat-label>
+					<input matInput formControlName="email" />
+				</mat-form-field>
+			</li>
+			<li>
+				<mat-form-field>
+					<mat-label>Username</mat-label>
+					<input matInput formControlName="username" />
+				</mat-form-field>
+			</li>
+		</ol>
+	</mat-dialog-content>
+	<mat-dialog-actions>
+		<button
+			mat-stroked-button
+			color="primary"
+			mat-dialog-close="false"
+			(click)="closeDialog()"
+		>
+			No Thanks
+		</button>
+		<button mat-flat-button color="primary" mat-dialog-close="true">
+			Add new user
+		</button>
+	</mat-dialog-actions>
+</form>

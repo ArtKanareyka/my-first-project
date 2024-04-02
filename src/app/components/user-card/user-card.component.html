@@ -6,12 +6,7 @@
 		<mat-card-subtitle>Username: {{ user?.username }}</mat-card-subtitle>
 	</mat-card-header>
 	<mat-card-actions style="margin-left: 0.5em; gap: 10px">
-		<button
-			mat-flat-button
-			color="primary"
-			type="button"
-			(click)="deleteUser(user?.id)"
-		>
+		<button mat-flat-button color="primary" (click)="deleteUser(user?.id)">
 			DELETE
 		</button>
 		<button mat-stroked-button color="primary">CUSTOM</button>
