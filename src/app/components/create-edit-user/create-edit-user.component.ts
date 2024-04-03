@@ -40,7 +40,7 @@ export class CreateEditUserComponent {
 	constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
 		this.myForm = new FormGroup({
 			name: new FormControl('', [Validators.required]),
-			email: new FormControl('', [Validators.required]),
+			email: new FormControl('', [Validators.required, Validators.email]),
 			username: new FormControl('', [Validators.required])
 		})
 	}
