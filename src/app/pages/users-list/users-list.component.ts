@@ -28,10 +28,10 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 export class UserListComponent implements OnInit {
 	public users: User[] = []
 
-	public dialog = inject(MatDialog)
+	private readonly dialog = inject(MatDialog)
 	private readonly usersService = inject(UsersService)
 
-	openDialog() {
+	openDialog(): void {
 		const dialogRef = this.dialog.open(CreateEditUserComponent, {
 			disableClose: true
 		})
@@ -43,7 +43,7 @@ export class UserListComponent implements OnInit {
 		this.usersService.deleteUser(id)
 	}
 
-	addUser(data: any) {
+	addUser(data: any): void {
 		this.usersService.postUser(data)
 	}
 

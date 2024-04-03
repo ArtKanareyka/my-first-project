@@ -1,12 +1,19 @@
 import { Component, Inject, inject } from '@angular/core'
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms'
+import {
+	FormGroup,
+	FormControl,
+	ReactiveFormsModule,
+	Validators,
+	EmailValidator
+} from '@angular/forms'
 
 import {
 	MatDialogTitle,
 	MatDialogContent,
 	MatDialogActions,
 	MatDialogRef,
-	MAT_DIALOG_DATA
+	MAT_DIALOG_DATA,
+	MatDialogClose
 } from '@angular/material/dialog'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
@@ -20,31 +27,32 @@ import { MatButtonModule } from '@angular/material/button'
 		MatDialogContent,
 		MatDialogActions,
 		MatInputModule,
-		MatButtonModule
+		MatButtonModule,
+		MatDialogClose
 	],
 	templateUrl: 'create-edit-user.component.html'
 })
 export class CreateEditUserComponent {
-	myForm: FormGroup = new FormGroup({
-		name: new FormControl(''),
-		email: new FormControl(''),
-		username: new FormControl('')
-	})
+	public readonly myForm: FormGroup
 
-	public dialogRef = inject(MatDialogRef)
+	public readonly dialogRef = inject(MatDialogRef)
 
-	constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
-
-	closeDialog(): void {
-		this.dialogRef.close()
+	constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+		this.myForm = new FormGroup({
+			name: new FormControl('', [Validators.required]),
+			email: new FormControl('', [Validators.required]),
+			username: new FormControl('', [Validators.required])
+		})
 	}
 
-	onSubmit() {
-		this.data = {
-			name: this.myForm.value.name,
-			email: this.myForm.value.email,
-			username: this.myForm.value.username
+	onSubmit(): void {
+		if (this.myForm.valid) {
+			this.data = {
+				name: this.myForm.value.name,
+				email: this.myForm.value.email,
+				username: this.myForm.value.username
+			}
+			this.dialogRef.close(this.data)
 		}
-		this.dialogRef.close(this.data)
 	}
 }
