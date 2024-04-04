@@ -3,8 +3,7 @@ import {
 	FormGroup,
 	FormControl,
 	ReactiveFormsModule,
-	Validators,
-	EmailValidator
+	Validators
 } from '@angular/forms'
 
 import {
@@ -17,6 +16,7 @@ import {
 } from '@angular/material/dialog'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
+import { CustomUser } from '../../interface/custom-user.interface'
 
 @Component({
 	selector: 'app-create-edit-user',
@@ -33,12 +33,12 @@ import { MatButtonModule } from '@angular/material/button'
 	templateUrl: 'create-edit-user.component.html'
 })
 export class CreateEditUserComponent {
-	public readonly myForm: FormGroup
+	public readonly userForm: FormGroup
 
 	public readonly dialogRef = inject(MatDialogRef)
 
-	constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-		this.myForm = new FormGroup({
+	constructor(@Inject(MAT_DIALOG_DATA) public userFormData: CustomUser) {
+		this.userForm = new FormGroup({
 			name: new FormControl('', [Validators.required]),
 			email: new FormControl('', [Validators.required, Validators.email]),
 			username: new FormControl('', [Validators.required])
@@ -46,13 +46,13 @@ export class CreateEditUserComponent {
 	}
 
 	onSubmit(): void {
-		if (this.myForm.valid) {
-			this.data = {
-				name: this.myForm.value.name,
-				email: this.myForm.value.email,
-				username: this.myForm.value.username
+		if (this.userForm.valid) {
+			this.userFormData = {
+				name: this.userForm.value.name,
+				email: this.userForm.value.email,
+				username: this.userForm.value.username
 			}
-			this.dialogRef.close(this.data)
+			this.dialogRef.close(this.userFormData)
 		}
 	}
 }

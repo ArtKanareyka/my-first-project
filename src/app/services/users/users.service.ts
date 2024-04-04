@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core'
 import { UsersApi } from '../users-api/users-api.service'
 import { User } from '../../interface/user.interface'
 import { BehaviorSubject, Observable } from 'rxjs'
+import { CustomUser } from '../../interface/custom-user.interface'
 
 @Injectable({
 	providedIn: 'root'
@@ -33,12 +34,16 @@ export class UsersService {
 		})
 	}
 
-	public postUser(data: User): void {
-		this.users$.subscribe((users: User[]) => {
-			if (data) {
-				data.id = users.length + 1
-				users.push(data)
+	public postUser(userFormData: CustomUser): void {
+		this.users$.subscribe((users: CustomUser[]) => {
+			if (userFormData) {
+				userFormData.id = users.length + 1
+				users.push(userFormData)
 			}
 		})
+	}
+
+	public editUser(user: CustomUser) {
+		this.users$.subscribe((users: CustomUser[]) => {})
 	}
 }

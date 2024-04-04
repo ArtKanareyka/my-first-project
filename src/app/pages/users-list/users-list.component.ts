@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatDialog } from '@angular/material/dialog'
 import { FormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { CustomUser } from '../../interface/custom-user.interface'
 
 @Component({
 	selector: 'app-user-list',
@@ -27,6 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 })
 export class UserListComponent implements OnInit {
 	public users: User[] = []
+	private isEdit: boolean = false
 
 	private readonly dialog = inject(MatDialog)
 	private readonly usersService = inject(UsersService)
@@ -36,15 +38,23 @@ export class UserListComponent implements OnInit {
 			disableClose: true
 		})
 
-		dialogRef.afterClosed().subscribe(data => this.addUser(data))
+		dialogRef
+			.afterClosed()
+			.subscribe(userFormData => this.addUser(userFormData))
 	}
 
 	deleteUser(id: number): void {
 		this.usersService.deleteUser(id)
 	}
 
-	addUser(data: any): void {
-		this.usersService.postUser(data)
+	addUser(userFormData: CustomUser): void {
+		this.isEdit = false
+		this.usersService.postUser(userFormData)
+	}
+
+	editUser(user: CustomUser): void {
+		this.isEdit = true
+		this.usersService.editUser(user)
 	}
 
 	ngOnInit(): void {
