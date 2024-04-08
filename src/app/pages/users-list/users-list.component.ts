@@ -49,7 +49,7 @@ export class UserListComponent implements OnInit {
 
 	addUser(userFormData: CustomUser): void {
 		this.isEdit = false
-		this.usersService.postUser(userFormData)
+		this.usersService.addUser(userFormData)
 	}
 
 	editUser(user: CustomUser): void {

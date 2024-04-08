@@ -16,10 +16,10 @@ export class UsersService {
 	private readonly usersApi = inject(UsersApi)
 
 	constructor() {
-		this.loadUsers()
+		this.getUsers()
 	}
 
-	private loadUsers(): void {
+	private getUsers(): void {
 		this.usersApi.getUsers().subscribe((users: User[]) => {
 			this.users.next(users)
 		})
@@ -34,7 +34,7 @@ export class UsersService {
 		})
 	}
 
-	public postUser(userFormData: CustomUser): void {
+	public addUser(userFormData: CustomUser): void {
 		this.users$.subscribe((users: CustomUser[]) => {
 			if (userFormData) {
 				userFormData.id = users.length + 1
@@ -44,6 +44,8 @@ export class UsersService {
 	}
 
 	public editUser(user: CustomUser) {
-		this.users$.subscribe((users: CustomUser[]) => {})
+		this.users$.subscribe((users: CustomUser[]) => {
+			console.log(user)
+		})
 	}
 }
