@@ -40,20 +40,24 @@ export class UserListComponent implements OnInit {
 			data: { isEdit: false }
 		})
 
-		dialogRef
-			.afterClosed()
-			.subscribe(userFormData => this.usersService.addUser(userFormData))
+		dialogRef.afterClosed().subscribe(userFormData => {
+			if (userFormData) {
+				this.usersService.addUser(userFormData)
+			}
+		})
 	}
 
 	openEditUserDialog(user: IUser): void {
 		const dialogRef = this.dialog.open(CreateEditUserComponent, {
 			disableClose: true,
-			data: { isEdit: true }
+			data: { isEdit: true, data: user }
 		})
 
-		dialogRef
-			.afterClosed()
-			.subscribe(userFormData => this.usersService.editUser(user, userFormData))
+		dialogRef.afterClosed().subscribe(userFormData => {
+			if (userFormData) {
+				this.usersService.editUser(user, userFormData)
+			}
+		})
 	}
 
 	ngOnInit(): void {

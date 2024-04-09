@@ -35,22 +35,14 @@ export class UsersService {
 
 	public addUser(userFormData: IUser): void {
 		this.users$.subscribe((users: IUser[]) => {
-			if (userFormData) {
-				userFormData.id = users.length + 1
-				users.push(userFormData)
-			}
+			userFormData.id = users.length + 1
+			users.push(userFormData)
 		})
 	}
 
 	editUser(user: IUser, userFormData: IUser): void {
-		this.users$.subscribe((users: IUser[]) => {
-			if (userFormData) {
-				user.name = userFormData.name
-				user.email = userFormData.email
-				user.username = userFormData.username
-			}
-			console.log(user)
-			console.log(userFormData)
-		})
+		user.name = userFormData.name
+		user.email = userFormData.email
+		user.username = userFormData.username
 	}
 }
