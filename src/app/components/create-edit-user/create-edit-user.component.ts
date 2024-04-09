@@ -1,11 +1,10 @@
-import { Component, Inject, inject } from '@angular/core'
+import { Component, Inject, OnInit, inject } from '@angular/core'
 import {
 	FormGroup,
-	FormControl,
 	ReactiveFormsModule,
-	Validators
+	Validators,
+	FormBuilder
 } from '@angular/forms'
-
 import {
 	MatDialogTitle,
 	MatDialogContent,
@@ -16,7 +15,7 @@ import {
 } from '@angular/material/dialog'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
-import { CustomUser } from '../../interface/custom-user.interface'
+import { IUser } from '../../pages/users-list/interface/user.interface'
 
 @Component({
 	selector: 'app-create-edit-user',
@@ -34,25 +33,32 @@ import { CustomUser } from '../../interface/custom-user.interface'
 })
 export class CreateEditUserComponent {
 	public readonly userForm: FormGroup
-
+	public fb = inject(FormBuilder)
 	public readonly dialogRef = inject(MatDialogRef)
+	public isEdit: boolean = false
 
-	constructor(@Inject(MAT_DIALOG_DATA) public userFormData: CustomUser) {
-		this.userForm = new FormGroup({
-			name: new FormControl('', [Validators.required]),
-			email: new FormControl('', [Validators.required, Validators.email]),
-			username: new FormControl('', [Validators.required])
+	constructor(
+		@Inject(MAT_DIALOG_DATA)
+		public userFormData: {
+			isEdit: boolean
+			data: IUser
+		}
+	) {
+		this.userForm = this.fb.group({
+			name: ['', Validators.required],
+			email: ['', [Validators.required, Validators.email]],
+			username: ['', Validators.required]
 		})
 	}
 
 	onSubmit(): void {
 		if (this.userForm.valid) {
-			this.userFormData = {
+			this.userFormData.data = {
 				name: this.userForm.value.name,
 				email: this.userForm.value.email,
 				username: this.userForm.value.username
 			}
-			this.dialogRef.close(this.userFormData)
+			this.dialogRef.close(this.userFormData.data)
 		}
 	}
 }

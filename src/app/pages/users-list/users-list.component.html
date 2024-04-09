@@ -4,7 +4,7 @@
 		><app-user-card
 			[user]="user"
 			(deleteUserEvent)="deleteUser(user.id)"
-			(editUserEvent)="editUser(user)"
+			(openEditUserDialogEvent)="openEditUserDialog(user)"
 		></app-user-card
 	></mat-grid-tile>
 	}
@@ -13,7 +13,7 @@
 			mat-mini-fab
 			color="primary"
 			aria-label="Add user"
-			(click)="openDialog()"
+			(click)="openAddUserDialog()"
 		>
 			<mat-icon>plus_one</mat-icon>
 		</button></mat-grid-tile

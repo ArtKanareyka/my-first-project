@@ -1,16 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core'
-import { UsersService } from '../../services/users/users.service'
-import { User } from '../../interface/user.interface'
-import { UserCardComponent } from '../../components/user-card/user-card.component'
+import { UsersService } from './services/users/users.service'
+import { IUser } from './interface/user.interface'
+import { UserCardComponent } from './user-card/user-card.component'
 import { CreateEditUserComponent } from '../../components/create-edit-user/create-edit-user.component'
 
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDialog } from '@angular/material/dialog'
-import { FormsModule } from '@angular/forms'
+import { FormGroup, FormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { CustomUser } from '../../interface/custom-user.interface'
 
 @Component({
 	selector: 'app-user-list',
@@ -27,34 +26,34 @@ import { CustomUser } from '../../interface/custom-user.interface'
 	templateUrl: './users-list.component.html'
 })
 export class UserListComponent implements OnInit {
-	public users: User[] = []
-	private isEdit: boolean = false
-
+	public users: IUser[] = []
 	private readonly dialog = inject(MatDialog)
 	private readonly usersService = inject(UsersService)
 
-	openDialog(): void {
+	deleteUser(id: number | undefined): void {
+		this.usersService.deleteUser(id)
+	}
+
+	openAddUserDialog(): void {
 		const dialogRef = this.dialog.open(CreateEditUserComponent, {
-			disableClose: true
+			disableClose: true,
+			data: { isEdit: false }
 		})
 
 		dialogRef
 			.afterClosed()
-			.subscribe(userFormData => this.addUser(userFormData))
+			.subscribe(userFormData => this.usersService.addUser(userFormData))
 	}
 
-	deleteUser(id: number): void {
-		this.usersService.deleteUser(id)
-	}
+	openEditUserDialog(user: IUser): void {
+		const dialogRef = this.dialog.open(CreateEditUserComponent, {
+			disableClose: true,
+			data: { isEdit: true }
+		})
 
-	addUser(userFormData: CustomUser): void {
-		this.isEdit = false
-		this.usersService.addUser(userFormData)
-	}
-
-	editUser(user: CustomUser): void {
-		this.isEdit = true
-		this.usersService.editUser(user)
+		dialogRef
+			.afterClosed()
+			.subscribe(userFormData => this.usersService.editUser(user, userFormData))
 	}
 
 	ngOnInit(): void {
