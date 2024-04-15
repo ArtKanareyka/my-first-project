@@ -11,7 +11,7 @@ export class UsersApi {
 	private readonly http = inject(HttpClient)
 	private readonly apiUsersUrl = environment.apiUsersUrl
 
-	public getUsers(): Observable<IUser[]> {
+	public get(): Observable<IUser[]> {
 		return this.http.get<IUser[]>(this.apiUsersUrl)
 	}
 }

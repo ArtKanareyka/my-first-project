@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core'
 import { UsersService } from './services/users/users.service'
+import { CommonModule } from '@angular/common'
 import { IUser } from './interface/user.interface'
 import { UserCardComponent } from './user-card/user-card.component'
 import { CreateEditUserComponent } from '../../components/create-edit-user/create-edit-user.component'
@@ -16,23 +17,18 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 	standalone: true,
 	imports: [
 		UserCardComponent,
-
 		MatGridListModule,
 		MatIconModule,
 		MatButtonModule,
 		MatFormFieldModule,
-		FormsModule
+		FormsModule,
+		CommonModule
 	],
 	templateUrl: './users-list.component.html'
 })
 export class UserListComponent implements OnInit {
-	public users: IUser[] = []
 	private readonly dialog = inject(MatDialog)
-	private readonly usersService = inject(UsersService)
-
-	deleteUser(id: number | undefined): void {
-		this.usersService.deleteUser(id)
-	}
+	public readonly usersService = inject(UsersService)
 
 	openAddUserDialog(): void {
 		const dialogRef = this.dialog.open(CreateEditUserComponent, {
@@ -61,8 +57,6 @@ export class UserListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.usersService.users$.subscribe(users => {
-			this.users = users
-		})
+		this.usersService.getUsers()
 	}
 }
