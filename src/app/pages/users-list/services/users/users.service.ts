@@ -17,8 +17,8 @@ export class UsersService {
 		const cachedData = this.localStorageService.getItem()
 		const arrCachedData = JSON.parse(cachedData!)
 		if (cachedData && arrCachedData.length !== 0) {
-			this.usersSubject$.next(arrCachedData)
 			this.localStorageService.setItem(arrCachedData)
+			this.usersSubject$.next(arrCachedData)
 		} else {
 			this.api.get().subscribe((response: IUser[]) => {
 				this.localStorageService.setItem(response)
