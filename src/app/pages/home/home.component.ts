@@ -1,9 +1,13 @@
-import { Component } from '@angular/core'
+import {Component, inject} from '@angular/core'
+import {UserFacade} from '../users-list/lib/+state/users.facade'
+import {AsyncPipe} from '@angular/common'
 
 @Component({
 	selector: 'app-home',
 	standalone: true,
-	imports: [],
+	imports: [AsyncPipe],
 	templateUrl: './home.component.html'
 })
-export class HomeComponent {}
+export class HomeComponent {
+	userFacade = inject(UserFacade)
+}

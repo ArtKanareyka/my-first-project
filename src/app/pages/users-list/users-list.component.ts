@@ -1,16 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core'
-import { UsersService } from './services/users/users.service'
-import { CommonModule } from '@angular/common'
-import { IUser } from './interface/user.interface'
-import { UserCardComponent } from './user-card/user-card.component'
-import { CreateEditUserComponent } from '../../components/create-edit-user/create-edit-user.component'
+import {Component, OnInit, inject} from '@angular/core'
+import {UsersService} from './services/users/users.service'
+import {CommonModule} from '@angular/common'
+import {IUser} from './interface/user.interface'
+import {UserCardComponent} from './user-card/user-card.component'
+import {CreateEditUserComponent} from '../../components/create-edit-user/create-edit-user.component'
 
-import { MatGridListModule } from '@angular/material/grid-list'
-import { MatIconModule } from '@angular/material/icon'
-import { MatButtonModule } from '@angular/material/button'
-import { MatDialog } from '@angular/material/dialog'
-import { FormsModule } from '@angular/forms'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import {MatGridListModule} from '@angular/material/grid-list'
+import {MatIconModule} from '@angular/material/icon'
+import {MatButtonModule} from '@angular/material/button'
+import {MatDialog} from '@angular/material/dialog'
+import {FormsModule} from '@angular/forms'
+import {MatFormFieldModule} from '@angular/material/form-field'
 
 @Component({
 	selector: 'app-user-list',
@@ -33,7 +33,7 @@ export class UserListComponent implements OnInit {
 	openAddUserDialog(): void {
 		const dialogRef = this.dialog.open(CreateEditUserComponent, {
 			disableClose: true,
-			data: { isEdit: false }
+			data: {isEdit: false}
 		})
 
 		dialogRef.afterClosed().subscribe(userFormData => {
@@ -46,7 +46,7 @@ export class UserListComponent implements OnInit {
 	openEditUserDialog(user: IUser): void {
 		const dialogRef = this.dialog.open(CreateEditUserComponent, {
 			disableClose: true,
-			data: { isEdit: true, data: user }
+			data: {isEdit: true, data: user}
 		})
 
 		dialogRef.afterClosed().subscribe(userFormData => {

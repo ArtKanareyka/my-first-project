@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core'
-import { IUser } from '../interface/user.interface'
-import { TitleCasePipe } from '@angular/common'
+import {Component, EventEmitter, Input, Output, inject} from '@angular/core'
+import {IUser} from '../interface/user.interface'
+import {TitleCasePipe} from '@angular/common'
 
-import { MatButtonModule } from '@angular/material/button'
-import { MatCardModule } from '@angular/material/card'
+import {MatButtonModule} from '@angular/material/button'
+import {MatCardModule} from '@angular/material/card'
 
 @Component({
 	selector: 'app-user-card',
@@ -12,7 +12,7 @@ import { MatCardModule } from '@angular/material/card'
 	templateUrl: './user-card.component.html'
 })
 export class UserCardComponent {
-	@Input({ required: true }) user: IUser | undefined
+	@Input({required: true}) user: IUser | undefined
 	@Output() deleteUserEvent = new EventEmitter<number | undefined>()
 	@Output() openEditUserDialogEvent = new EventEmitter<IUser>()
 

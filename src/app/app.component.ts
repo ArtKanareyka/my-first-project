@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core'
-import { RouterOutlet } from '@angular/router'
-import { UsersApi } from './pages/users-list/services/users-api/users-api.service'
-import { HeaderComponent } from './layout/header/header.component'
-import { FooterComponent } from './layout/footer/footer.component'
+import {Component, inject} from '@angular/core'
+import {RouterOutlet} from '@angular/router'
+import {UsersApi} from './pages/users-list/services/users-api/users-api.service'
+import {HeaderComponent} from './layout/header/header.component'
+import {FooterComponent} from './layout/footer/footer.component'
 
 @Component({
 	selector: 'app-root',
