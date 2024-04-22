@@ -1,5 +1,5 @@
 import {Component, OnInit, inject} from '@angular/core'
-import {UsersService} from './services/users/users.service'
+import {UsersService} from './services/users.service'
 import {CommonModule} from '@angular/common'
 import {IUser} from './interface/user.interface'
 import {UserCardComponent} from './user-card/user-card.component'

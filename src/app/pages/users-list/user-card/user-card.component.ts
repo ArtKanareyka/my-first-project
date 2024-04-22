@@ -12,8 +12,8 @@ import {MatCardModule} from '@angular/material/card'
 	templateUrl: './user-card.component.html'
 })
 export class UserCardComponent {
-	@Input({required: true}) user: IUser | undefined
-	@Output() deleteUserEvent = new EventEmitter<number | undefined>()
+	@Input() user: IUser | undefined
+	@Output() deleteUserEvent = new EventEmitter<number>()
 	@Output() openEditUserDialogEvent = new EventEmitter<IUser>()
 
 	deleteUser() {

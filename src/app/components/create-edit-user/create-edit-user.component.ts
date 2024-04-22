@@ -28,9 +28,8 @@ import {IUser} from '../../pages/users-list/interface/user.interface'
 })
 export class CreateEditUserComponent {
 	public readonly userForm: FormGroup
-	public fb = inject(FormBuilder)
-	public readonly dialogRef = inject(MatDialogRef)
-	public isEdit: boolean
+	private fb = inject(FormBuilder)
+	private readonly dialogRef = inject(MatDialogRef)
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA)
@@ -39,11 +38,10 @@ export class CreateEditUserComponent {
 			data: IUser
 		}
 	) {
-		this.isEdit = this.userFormData.isEdit
 		this.userForm = this.fb.group({
-			name: [this.isEdit ? this.userFormData.data.name : '', Validators.required],
-			email: [this.isEdit ? this.userFormData.data.email : '', [Validators.required, Validators.email]],
-			username: [this.isEdit ? this.userFormData.data.username : '', Validators.required]
+			name: [this.userFormData.isEdit ? this.userFormData.data.name : '', Validators.required],
+			email: [this.userFormData.isEdit ? this.userFormData.data.email : '', [Validators.required, Validators.email]],
+			username: [this.userFormData.isEdit ? this.userFormData.data.username : '', Validators.required]
 		})
 	}
 

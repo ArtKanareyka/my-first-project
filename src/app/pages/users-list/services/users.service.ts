@@ -1,16 +1,16 @@
 import {Injectable, inject} from '@angular/core'
-import {UsersApi} from '../users-api/users-api.service'
-import {IUser} from '../../interface/user.interface'
+import {UsersApi} from './users-api.service'
+import {IUser} from '../interface/user.interface'
 import {BehaviorSubject, Observable} from 'rxjs'
-import {LocalStorageService} from '../local-storage/local-storage.service'
+import {LocalStorageService} from './local-storage.service'
 
 @Injectable({
 	providedIn: 'root'
 })
 export class UsersService {
 	private readonly usersSubject$ = new BehaviorSubject<IUser[]>([])
-	public readonly users$: Observable<IUser[]> = this.usersSubject$.asObservable()
-	private readonly api = inject(UsersApi)
+	public readonly users$ = this.usersSubject$.asObservable()
+	private readonly usersApiService = inject(UsersApi)
 	private readonly localStorageService = inject(LocalStorageService)
 
 	public getUsers(): void {
@@ -20,14 +20,14 @@ export class UsersService {
 			this.localStorageService.setItem(arrCachedData)
 			this.usersSubject$.next(arrCachedData)
 		} else {
-			this.api.get().subscribe((response: IUser[]) => {
+			this.usersApiService.getUsers().subscribe((response: IUser[]) => {
 				this.localStorageService.setItem(response)
 				this.usersSubject$.next(response)
 			})
 		}
 	}
 
-	public deleteUser(id: number | undefined): void {
+	public deleteUser(id: number): void {
 		this.usersSubject$.subscribe((response: IUser[]) => {
 			response.splice(
 				response.findIndex(user => user.id === id),
