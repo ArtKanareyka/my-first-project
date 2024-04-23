@@ -51,8 +51,7 @@ export class UsersService {
 			.pipe(
 				take(1),
 				map((users: IUser[]) => {
-					const updatedUsers = [...users, {...userFormData, id: users.length + 1}]
-					return updatedUsers
+					return [...users, {...userFormData, id: users.length + 1}]
 				})
 			)
 			.subscribe((updatedUsers: IUser[]) => {
