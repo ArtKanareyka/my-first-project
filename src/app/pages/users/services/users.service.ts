@@ -1,7 +1,7 @@
 import {Injectable, inject} from '@angular/core'
 import {UsersApi} from './users-api.service'
 import {IUser} from '../interface/user.interface'
-import {BehaviorSubject} from 'rxjs'
+import {BehaviorSubject, map, take, tap} from 'rxjs'
 import {LocalStorageService} from './local-storage.service'
 
 @Injectable({
@@ -20,38 +20,63 @@ export class UsersService {
 			this.localStorageService.setItem(arrCachedData)
 			this.usersSubject$.next(arrCachedData)
 		} else {
-			this.usersApiService.getUsers().subscribe((response: IUser[]) => {
-				this.localStorageService.setItem(response)
-				this.usersSubject$.next(response)
-			})
+			this.usersApiService
+				.getUsers()
+				.pipe(
+					tap((response: IUser[]) => {
+						this.localStorageService.setItem(response)
+						this.usersSubject$.next(response)
+					})
+				)
+				.subscribe()
 		}
 	}
 
 	public deleteUser(id: number): void {
-		this.usersSubject$.subscribe((response: IUser[]) => {
-			response.splice(
-				response.findIndex(user => user.id === id),
-				1
+		this.usersSubject$
+			.pipe(
+				take(1),
+				map((users: IUser[]) => {
+					return users.filter(user => user.id !== id)
+				})
 			)
-			this.localStorageService.setItem(response)
-		})
+			.subscribe((updatedUsers: IUser[]) => {
+				this.localStorageService.setItem(updatedUsers)
+				this.usersSubject$.next(updatedUsers)
+			})
 	}
 
 	public addUser(userFormData: IUser): void {
-		this.usersSubject$.subscribe((response: IUser[]) => {
-			userFormData.id = response.length + 1
-			response.push(userFormData)
-			this.localStorageService.setItem(response)
-		})
+		this.usersSubject$
+			.pipe(
+				take(1),
+				map((users: IUser[]) => {
+					const updatedUsers = [...users, {...userFormData, id: users.length + 1}]
+					return updatedUsers
+				})
+			)
+			.subscribe((updatedUsers: IUser[]) => {
+				this.localStorageService.setItem(updatedUsers)
+				this.usersSubject$.next(updatedUsers)
+			})
 	}
 
 	public editUser(user: IUser, userFormData: IUser): void {
-		this.usersSubject$.subscribe((response: IUser[]) => {
-			const index = response.findIndex(item => item.id === user.id)
-			response[index].name = userFormData.name
-			response[index].email = userFormData.email
-			response[index].username = userFormData.username
-			this.localStorageService.setItem(response)
-		})
+		this.usersSubject$
+			.pipe(
+				take(1),
+				map((users: IUser[]) => {
+					return users.map(item => {
+						if (item.id === user.id) {
+							return {...item, name: userFormData.name, email: userFormData.email, username: userFormData.username}
+						}
+						return item
+					})
+				})
+			)
+			.subscribe((updatedUsers: IUser[]) => {
+				this.localStorageService.setItem(updatedUsers)
+				this.usersSubject$.next(updatedUsers)
+			})
 	}
 }
