@@ -27,7 +27,7 @@ import {IUser} from '../../interface/user.interface'
 	templateUrl: 'create-edit-user.component.html'
 })
 export class CreateEditUserComponent {
-	public readonly userForm: FormGroup
+	public userForm: FormGroup
 	private fb = inject(FormBuilder)
 	private readonly dialogRef = inject(MatDialogRef)
 

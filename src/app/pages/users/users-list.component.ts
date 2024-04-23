@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common'
 import {IUser} from './interface/user.interface'
 import {UserCardComponent} from './components/user-card/user-card.component'
 import {CreateEditUserComponent} from './components/create-edit-user/create-edit-user.component'
-
 import {MatGridListModule} from '@angular/material/grid-list'
 import {MatIconModule} from '@angular/material/icon'
 import {MatButtonModule} from '@angular/material/button'

@@ -12,7 +12,7 @@ import {MatCardModule} from '@angular/material/card'
 	templateUrl: './user-card.component.html'
 })
 export class UserCardComponent {
-	@Input() user!: IUser
+	@Input({required: true}) user!: IUser
 	@Output() deleteUserEvent = new EventEmitter<number>()
 	@Output() openEditUserDialogEvent = new EventEmitter<IUser>()
 
