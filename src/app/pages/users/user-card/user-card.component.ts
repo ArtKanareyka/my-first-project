@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, inject} from '@angular/core'
+import {Component, EventEmitter, Input, Output} from '@angular/core'
 import {IUser} from '../interface/user.interface'
 import {TitleCasePipe} from '@angular/common'
 
@@ -16,11 +16,11 @@ export class UserCardComponent {
 	@Output() deleteUserEvent = new EventEmitter<number>()
 	@Output() openEditUserDialogEvent = new EventEmitter<IUser>()
 
-	deleteUser() {
+	deleteUser(): void {
 		this.deleteUserEvent.emit()
 	}
 
-	openEditUserDialog() {
+	openEditUserDialog(): void {
 		this.openEditUserDialogEvent.emit()
 	}
 }

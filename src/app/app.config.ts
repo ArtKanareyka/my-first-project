@@ -5,7 +5,7 @@ import {routes} from './app.routes'
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async'
 import {provideStore} from '@ngrx/store'
 import {provideStoreDevtools} from '@ngrx/store-devtools'
-import {usersFeature} from './pages/users-list/lib/+state/users.reducer'
+import {usersFeature} from './pages/users/lib/+state/users.reducer'
 
 export const appConfig: ApplicationConfig = {
 	providers: [

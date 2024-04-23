@@ -10,7 +10,7 @@ import {
 } from '@angular/material/dialog'
 import {MatInputModule} from '@angular/material/input'
 import {MatButtonModule} from '@angular/material/button'
-import {IUser} from '../../pages/users-list/interface/user.interface'
+import {IUser} from '../../interface/user.interface'
 
 @Component({
 	selector: 'app-create-edit-user',
@@ -48,6 +48,7 @@ export class CreateEditUserComponent {
 	onSubmit(): void {
 		if (this.userForm.valid) {
 			this.userFormData.data = {
+				id: 1111,
 				name: this.userForm.value.name,
 				email: this.userForm.value.email,
 				username: this.userForm.value.username

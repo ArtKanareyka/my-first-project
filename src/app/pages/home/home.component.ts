@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core'
-import {UserFacade} from '../users-list/lib/+state/users.facade'
+import {UserFacade} from '../users/lib/+state/users.facade'
 import {AsyncPipe} from '@angular/common'
 
 @Component({
