@@ -2,7 +2,7 @@ import {Component, OnInit, inject} from '@angular/core'
 import {UsersService} from './services/users.service'
 import {CommonModule} from '@angular/common'
 import {IUser} from './interface/user.interface'
-import {UserCardComponent} from './user-card/user-card.component'
+import {UserCardComponent} from './components/user-card/user-card.component'
 import {CreateEditUserComponent} from './components/create-edit-user/create-edit-user.component'
 
 import {MatGridListModule} from '@angular/material/grid-list'

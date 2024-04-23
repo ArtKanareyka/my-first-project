@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core'
-import {IUser} from '../interface/user.interface'
+import {IUser} from '../../interface/user.interface'
 import {TitleCasePipe} from '@angular/common'
 
 import {MatButtonModule} from '@angular/material/button'
@@ -12,7 +12,7 @@ import {MatCardModule} from '@angular/material/card'
 	templateUrl: './user-card.component.html'
 })
 export class UserCardComponent {
-	@Input() user: IUser | undefined
+	@Input() user!: IUser
 	@Output() deleteUserEvent = new EventEmitter<number>()
 	@Output() openEditUserDialogEvent = new EventEmitter<IUser>()
 
