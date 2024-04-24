@@ -14,7 +14,7 @@ export class UsersService {
 	private readonly localStorageService = inject(LocalStorageService)
 
 	public getUsers(): Observable<IUser[]> {
-		const cachedData = this.localStorageService.getItem()
+		const cachedData = this.localStorageService.getItem('usersList')
 		const arrCachedData = JSON.parse(cachedData!)
 
 		if (cachedData && arrCachedData.length !== 0) {
@@ -24,7 +24,7 @@ export class UsersService {
 			return this.usersApiService.getUsers().pipe(
 				tap((response: IUser[]) => {
 					this.usersSubject$.next(response)
-					this.localStorageService.setItem(response)
+					this.localStorageService.setItem('usersList', response)
 				})
 			)
 		}
@@ -32,14 +32,14 @@ export class UsersService {
 
 	public deleteUser(id: number): void {
 		this.usersSubject$.next(this.usersSubject$.value.filter(user => user.id !== id))
-		this.localStorageService.setItem(this.usersSubject$.value)
+		this.localStorageService.setItem('usersList', this.usersSubject$.value)
 	}
 
 	public addUser(userFormData: IUser): void {
 		this.usersSubject$.next(
 			this.usersSubject$.value.concat({ ...userFormData, id: this.usersSubject$.value.length + 1 })
 		)
-		this.localStorageService.setItem(this.usersSubject$.value)
+		this.localStorageService.setItem('usersList', this.usersSubject$.value)
 	}
 
 	public editUser(user: IUser, userFormData: IUser): void {
@@ -52,6 +52,6 @@ export class UsersService {
 				}
 			})
 		)
-		this.localStorageService.setItem(this.usersSubject$.value)
+		this.localStorageService.setItem('usersList', this.usersSubject$.value)
 	}
 }

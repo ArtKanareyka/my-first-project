@@ -20,3 +20,10 @@ export interface IUser {
 		bs: string
 	}
 }
+
+export interface IState {
+	Users: IUser[]
+	status: string
+	error: boolean | null
+	counter: number
+}

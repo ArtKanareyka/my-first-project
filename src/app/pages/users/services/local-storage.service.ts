@@ -5,11 +5,11 @@ import { IUser } from '../interface/user.interface'
 	providedIn: 'root'
 })
 export class LocalStorageService {
-	getItem() {
-		return localStorage.getItem('usersList')
+	getItem(key: string) {
+		return localStorage.getItem(key)
 	}
 
-	setItem(data: IUser[]) {
-		localStorage.setItem('usersList', JSON.stringify(data))
+	setItem(key: string, data?: IUser[]) {
+		localStorage.setItem(key, JSON.stringify(data))
 	}
 }

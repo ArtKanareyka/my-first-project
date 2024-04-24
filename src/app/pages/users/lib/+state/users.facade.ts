@@ -1,10 +1,10 @@
-import {Injectable, inject} from '@angular/core'
-import {Store} from '@ngrx/store'
-import {usersActions} from './users.actions'
-import {IUser} from '../../interface/user.interface'
+import { Injectable, inject } from '@angular/core'
+import { Store } from '@ngrx/store'
+import { usersActions } from './users.actions'
+import { IUser } from '../../interface/user.interface'
 import * as UsersSelectors from './users.selector'
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class UserFacade {
 	private readonly store = inject(Store)
 
@@ -15,15 +15,15 @@ export class UserFacade {
 	}
 
 	deleteUser(id: number | undefined) {
-		this.store.dispatch(usersActions.deleteUser({id}))
+		this.store.dispatch(usersActions.deleteUser({ id }))
 	}
 
 	addUser(userFormData: IUser) {
-		this.store.dispatch(usersActions.addUser({userFormData}))
+		this.store.dispatch(usersActions.addUser({ userFormData }))
 	}
 
 	editUser(user: IUser, userFormData: IUser) {
-		this.store.dispatch(usersActions.editUser({user, userFormData}))
+		this.store.dispatch(usersActions.editUser({ user, userFormData }))
 	}
 
 	increment() {

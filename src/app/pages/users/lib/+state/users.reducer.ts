@@ -1,15 +1,8 @@
-import {createFeature, createReducer, on} from '@ngrx/store'
-import {usersActions} from './users.actions'
-import {IUser} from '../../interface/user.interface'
+import { createFeature, createReducer, on } from '@ngrx/store'
+import { usersActions } from './users.actions'
+import { IState } from '../../interface/user.interface'
 
-export interface State {
-	Users: IUser[]
-	status: string
-	error: boolean | null
-	counter: number
-}
-
-export const initialUserState: State = {
+export const initialUserState: IState = {
 	Users: [],
 	status: 'init',
 	error: null,
@@ -24,7 +17,7 @@ export const usersFeature = createFeature({
 			...state,
 			status: 'loading' as const
 		})),
-		on(usersActions.addUserFailure, (state, {error}) => ({
+		on(usersActions.addUserFailure, (state, { error }) => ({
 			...state,
 			status: 'error' as const,
 			error: error
