@@ -1,26 +1,18 @@
-import {Inject, Injectable, inject} from '@angular/core'
-import {FormBuilder, FormGroup, Validators} from '@angular/forms'
-import {MAT_DIALOG_DATA} from '@angular/material/dialog'
-import {IUser} from '../interface/user.interface'
+import { Injectable, inject } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { IUser } from '../interface/user.interface'
 
 @Injectable({
 	providedIn: 'root'
 })
 export class UsersFormService {
-	private fb = inject(FormBuilder)
+	private readonly fb = inject(FormBuilder)
 
-	constructor(
-		@Inject(MAT_DIALOG_DATA)
-		public userFormData: {
-			data: IUser
-		}
-	) {}
-
-	public getForm(): FormGroup {
+	public createUserForm(user: IUser): FormGroup {
 		return this.fb.group({
-			name: [this.userFormData.data?.name ?? '', Validators.required],
-			email: [this.userFormData.data?.email ?? '', [Validators.required, Validators.email]],
-			username: [this.userFormData.data?.username ?? '', Validators.required]
+			name: [user?.name ?? '', Validators.required],
+			email: [user?.email ?? '', [Validators.required, Validators.email]],
+			username: [user?.username ?? '', Validators.required]
 		})
 	}
 }

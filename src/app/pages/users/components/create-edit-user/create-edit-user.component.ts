@@ -1,5 +1,5 @@
-import {Component, Inject, inject} from '@angular/core'
-import {FormGroup, ReactiveFormsModule, Validators, FormBuilder} from '@angular/forms'
+import { Component, Inject, inject } from '@angular/core'
+import { FormGroup, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms'
 import {
 	MatDialogTitle,
 	MatDialogContent,
@@ -8,9 +8,10 @@ import {
 	MAT_DIALOG_DATA,
 	MatDialogClose
 } from '@angular/material/dialog'
-import {MatInputModule} from '@angular/material/input'
-import {MatButtonModule} from '@angular/material/button'
-import {IUser} from '../../interface/user.interface'
+import { MatInputModule } from '@angular/material/input'
+import { MatButtonModule } from '@angular/material/button'
+import { IUser } from '../../interface/user.interface'
+import { UsersFormService } from '../../services/users-form.service'
 
 @Component({
 	selector: 'app-create-edit-user',
@@ -26,34 +27,19 @@ import {IUser} from '../../interface/user.interface'
 	],
 	templateUrl: 'create-edit-user.component.html'
 })
-// todo: создать сервис userForm в нем создать метод - createUserFormn и в нем
 export class CreateEditUserComponent {
 	public userForm: FormGroup
-	private fb = inject(FormBuilder)
 	private readonly dialogRef = inject(MatDialogRef)
+	public usersFormService = inject(UsersFormService)
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA)
-		public userFormData: {
-			data: IUser
-		}
+		public readonly user: IUser
 	) {
-		this.userForm = this.fb.group({
-			name: [this.userFormData.data?.name ?? '', Validators.required],
-			email: [this.userFormData.data?.email ?? '', [Validators.required, Validators.email]],
-			username: [this.userFormData.data?.username ?? '', Validators.required]
-		})
+		this.userForm = this.usersFormService.createUserForm(user)
 	}
 
 	onSubmit(): void {
-		if (this.userForm.valid) {
-			this.userFormData.data = {
-				id: 123123,
-				name: this.userForm.value.name,
-				email: this.userForm.value.email,
-				username: this.userForm.value.username
-			}
-			this.dialogRef.close(this.userFormData.data)
-		}
+		this.dialogRef.close(this.userForm.value)
 	}
 }

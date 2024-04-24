@@ -1,8 +1,8 @@
-import {Injectable, inject} from '@angular/core'
-import {UsersApi} from './users-api.service'
-import {IUser} from '../interface/user.interface'
-import {BehaviorSubject, Observable, of, reduce, tap} from 'rxjs'
-import {LocalStorageService} from './local-storage.service'
+import { Injectable, inject } from '@angular/core'
+import { UsersApi } from './users-api.service'
+import { IUser } from '../interface/user.interface'
+import { BehaviorSubject, Observable, of, reduce, tap } from 'rxjs'
+import { LocalStorageService } from './local-storage.service'
 
 @Injectable({
 	providedIn: 'root'
@@ -36,7 +36,9 @@ export class UsersService {
 	}
 
 	public addUser(userFormData: IUser): void {
-		this.usersSubject$.next(this.usersSubject$.value.concat({...userFormData, id: this.usersSubject$.value.length + 1}))
+		this.usersSubject$.next(
+			this.usersSubject$.value.concat({ ...userFormData, id: this.usersSubject$.value.length + 1 })
+		)
 		this.localStorageService.setItem(this.usersSubject$.value)
 	}
 
@@ -46,7 +48,7 @@ export class UsersService {
 				if (item.id !== user.id) {
 					return item
 				} else {
-					return {...item, name: userFormData.name, email: userFormData.email, username: userFormData.username}
+					return { ...item, name: userFormData.name, email: userFormData.email, username: userFormData.username }
 				}
 			})
 		)
