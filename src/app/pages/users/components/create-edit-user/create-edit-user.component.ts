@@ -26,6 +26,7 @@ import {IUser} from '../../interface/user.interface'
 	],
 	templateUrl: 'create-edit-user.component.html'
 })
+// todo: создать сервис userForm в нем создать метод - createUserFormn и в нем
 export class CreateEditUserComponent {
 	public userForm: FormGroup
 	private fb = inject(FormBuilder)
@@ -34,14 +35,13 @@ export class CreateEditUserComponent {
 	constructor(
 		@Inject(MAT_DIALOG_DATA)
 		public userFormData: {
-			isEdit: boolean
 			data: IUser
 		}
 	) {
 		this.userForm = this.fb.group({
-			name: [this.userFormData.isEdit ? this.userFormData.data.name : '', Validators.required],
-			email: [this.userFormData.isEdit ? this.userFormData.data.email : '', [Validators.required, Validators.email]],
-			username: [this.userFormData.isEdit ? this.userFormData.data.username : '', Validators.required]
+			name: [this.userFormData.data?.name ?? '', Validators.required],
+			email: [this.userFormData.data?.email ?? '', [Validators.required, Validators.email]],
+			username: [this.userFormData.data?.username ?? '', Validators.required]
 		})
 	}
 

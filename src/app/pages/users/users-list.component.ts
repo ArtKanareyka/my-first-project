@@ -32,7 +32,7 @@ export class UserListComponent implements OnInit {
 	openAddUserDialog(): void {
 		const dialogRef = this.dialog.open(CreateEditUserComponent, {
 			disableClose: true,
-			data: {isEdit: false}
+			data: {}
 		})
 
 		dialogRef.afterClosed().subscribe(userFormData => {
@@ -45,7 +45,7 @@ export class UserListComponent implements OnInit {
 	openEditUserDialog(user: IUser): void {
 		const dialogRef = this.dialog.open(CreateEditUserComponent, {
 			disableClose: true,
-			data: {isEdit: true, data: user}
+			data: {data: user}
 		})
 
 		dialogRef.afterClosed().subscribe(userFormData => {
@@ -56,6 +56,6 @@ export class UserListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.usersService.getUsers()
+		this.usersService.getUsers().subscribe()
 	}
 }
