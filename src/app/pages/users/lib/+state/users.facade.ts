@@ -14,7 +14,7 @@ export class UserFacade {
 		this.store.dispatch(usersActions.getUsers())
 	}
 
-	deleteUser(id: number | undefined) {
+	deleteUser(id: number) {
 		this.store.dispatch(usersActions.deleteUser({ id }))
 	}
 

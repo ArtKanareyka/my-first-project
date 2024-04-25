@@ -5,12 +5,12 @@ export const usersActions = createActionGroup({
 	source: 'Users',
 	events: {
 		getUsers: emptyProps(),
-		deleteUser: props<{ id: number | undefined }>(),
+		deleteUser: props<{ id: number }>(),
 		addUser: props<{ userFormData: IUser }>(),
 		editUser: props<{ user: IUser; userFormData: IUser }>(),
 
 		getUsersSuccess: props<{ users: IUser[] }>(),
-		deleteUserSuccess: props<{ id: number | undefined }>(),
+		deleteUserSuccess: props<{ id: number }>(),
 		addUserSuccess: props<{ userFormData: IUser }>(),
 		editUserSuccess: props<{ user: IUser; userFormData: IUser }>(),
 
