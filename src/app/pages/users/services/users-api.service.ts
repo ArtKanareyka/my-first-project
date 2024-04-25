@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { IUser } from '../interface/user.interface'
 import { Observable } from 'rxjs'
-import { environment } from '../../../../environments/environment.development'
 import { API_URL } from '../lib/api-url.token'
 
 @Injectable({
